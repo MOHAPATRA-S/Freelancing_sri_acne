@@ -41,13 +41,11 @@ export default class UploadS3 extends Component {
       enterEmail: "",
       enterPhone: "",
       dataUploaded: false,
-      maleOrFemale: {
-        "label": "Male",
-      },
+      maleOrFemale: '',
       acneTime: "",
       acneLevel: "",
       otherAcne: "",
-      age: '0',
+      age: '',
       ageError: '',
       sportsWear: ""
     };
@@ -138,10 +136,10 @@ export default class UploadS3 extends Component {
   validateHandle = (text, type) => {
     console.log("text,type===>", text, type)
     if (type === 'age') {
-      if (text) {
-        this.setState({ age: text, ageError: '' })
+      if (text == '') {
+        this.setState({ age: '', })
       } else {
-        this.setState({ ageError: 'Please enter your age.' })
+        this.setState({ age: text, })
       }
 
     }
@@ -149,7 +147,7 @@ export default class UploadS3 extends Component {
       if (text.label) {
         this.setState({ maleOrFemale: text.label, })
       } else {
-        alert('Please select your sex.')
+        this.setState({ maleOrFemale: '' })
       }
 
     }
@@ -157,7 +155,8 @@ export default class UploadS3 extends Component {
       if (text.label) {
         this.setState({ acneTime: text.label, })
       } else {
-        alert('Please select your answer to proceed next.')
+        this.setState({ acneTime: '', })
+
       }
 
     }
@@ -165,7 +164,7 @@ export default class UploadS3 extends Component {
       if (text.label) {
         this.setState({ acneLevel: text.label, })
       } else {
-        alert('Please select your answer to proceed next.')
+        this.setState({ acneLevel: '', })
       }
 
     }
@@ -173,7 +172,8 @@ export default class UploadS3 extends Component {
       if (text.label) {
         this.setState({ otherAcne: text.label, })
       } else {
-        alert('Please select your answer to proceed next.')
+        this.setState({ otherAcne: '', })
+        // alert('Please select your answer to proceed next.')
       }
 
     }
@@ -182,7 +182,25 @@ export default class UploadS3 extends Component {
       if (text.label) {
         this.setState({ sportsWear: text.label, })
       } else {
-        alert('Please select your answer to proceed next.')
+        this.setState({ sportsWear: '', })
+
+      }
+
+    }
+    if (type === 'phonenumber') {
+      if (text == '') {
+        this.setState({ enterPhone: '', })
+      } else {
+        this.setState({ enterPhone: text, })
+      }
+
+    }
+
+    if (type === 'email') {
+      if (text == '') {
+        this.setState({ enterEmail: '', })
+      } else {
+        this.setState({ enterEmail: text, })
       }
 
     }
@@ -238,15 +256,15 @@ export default class UploadS3 extends Component {
             borderBottomColor: "black"
 
           }}
-          value={this.state.age}
+            value={this.state.age}
             placeholder="0"
             keyboardType="number-pad"
             onChangeText={(text) => this.validateHandle(text, 'age')}
           >
           </TextInput>
-          <Text>
+          {/* <Text>
             {this.state.ageError}
-          </Text>
+          </Text> */}
           <TouchableOpacity style={{
             backgroundColor: "black",
             width: 100,
@@ -255,16 +273,16 @@ export default class UploadS3 extends Component {
             marginTop: 50,
           }}
             onPress={() => {
-              if(this.state.age){
-              this.setState({
-                currentState: this.state.currentState + 1
-              })}
-              else{
-                alert('Please select your answer to proceed next')
+              if (this.state.age) {
+                this.setState({
+                  currentState: this.state.currentState + 1
+                })
+              }
+              else {
+                alert('Please enter your age to proceed next')
               }
             }}
           >
-
 
             <Text style={{ color: "white", textAlign: "center", paddingTop: 25 }}>
               Next
@@ -321,8 +339,7 @@ export default class UploadS3 extends Component {
             What is your sex?
           </Text>
           <RadioButtonRN
-           initial={-1}
-           animationTypes={['pulse', 'rotate']}
+            animationTypes={['pulse', 'zoomIn']}
             data={data}
             selectedBtn={(e) => {
               console.log(e); this.validateHandle(e, 'sex')
@@ -330,37 +347,27 @@ export default class UploadS3 extends Component {
               //   maleOrFemale: e
               // })
             }}
-            
+
           />
+
 
 
           <Text style={{ fontSize: 15, marginTop: 10 }}>
             How long have you suffered from acne?
           </Text>
+
           <RadioButtonRN
             data={dataAcne}
-            initial={-1}
-            animationTypes={['pulse', 'rotate']}
+            animationTypes={['pulse', 'zoomIn']}
             selectedBtn={(e) => {
-              console.log(e); this.validateHandle(e, 'sufferedTime')
-              // this.setState({
-              //   acneTime
-              //     : e
-              // })
+              this.validateHandle(e, 'sufferedTime')
+              //    console.log(e);
+              //    // this.setState({
+              //    //   acneTimemf
+              //    //     : e
+              //    // })
             }}
           />
-
-
-
-
-          {/* <Text style={{ fontSize: 15, marginTop: 10 }}>
-            What's your age?
-          </Text>
-          <TextInput style={{ width: 80, height: 50, borderWidth: 3, borderBottomColor: "black", marginLeft: 50, backgroundColor: "white" }}
-            placeholder="0"
-          >
-          </TextInput> */}
-
 
           <TouchableOpacity style={{
             backgroundColor: "black",
@@ -372,9 +379,15 @@ export default class UploadS3 extends Component {
 
           }}
             onPress={() => {
-              this.setState({
-                currentState: this.state.currentState + 1
-              })
+              if (this.state.maleOrFemale && this.state.acneTime) {
+                this.setState({
+                  currentState: this.state.currentState + 1
+                })
+              }
+              else {
+                alert('Please select your answer to proceed next.')
+              }
+
             }}
           >
 
@@ -384,7 +397,10 @@ export default class UploadS3 extends Component {
             </Text>
 
           </TouchableOpacity>
-        </View >)
+        </View >
+
+
+      )
     }
 
 
@@ -418,7 +434,7 @@ export default class UploadS3 extends Component {
           label: 'none',
         }
       ];
-
+console.log('')
       return (
         <View>
 
@@ -426,8 +442,7 @@ export default class UploadS3 extends Component {
             What do you think you are suffering from, mild, moderate, or severe acne?
           </Text>
           <RadioButtonRN
-           initial={-1}
-           animationTypes={['pulse', 'rotate']}
+            animationTypes={['pulse', 'zoomIn']}
             data={acneLevel}
             selectedBtn={(e) => {
               console.log(e); this.validateHandle(e, 'sufferingFrom')
@@ -442,8 +457,7 @@ export default class UploadS3 extends Component {
             Do you have other skin concerns in addition to acne: such as rosacea, seborrhea, fungal acne?
           </Text>
           <RadioButtonRN
-           initial={-1}
-           animationTypes={['pulse', 'rotate']}
+            animationTypes={['pulse', 'rotate']}
             data={otherAcne}
             selectedBtn={(e) => {
               console.log(e); this.validateHandle(e, 'skinConcerns')
@@ -464,9 +478,15 @@ export default class UploadS3 extends Component {
 
           }}
             onPress={() => {
-              this.setState({
-                currentState: this.state.currentState + 1
-              })
+              if (this.state.acneLevel && this.state.otherAcne) {
+                this.setState({
+                  currentState: this.state.currentState + 1
+                })
+              }
+              else {
+                alert('Please select your answer to proceed next.')
+              }
+
             }}
           >
             <Text style={{ color: "white", textAlign: "center", paddingTop: 25 }}>
@@ -496,8 +516,7 @@ export default class UploadS3 extends Component {
             Do you frequently wear accessories on your face/head like masks, sportswear, etc.?
           </Text>
           <RadioButtonRN
-           initial={-1}
-           animationTypes={['pulse', 'rotate']}
+            animationTypes={['pulse', 'zoomIn']}
             data={sportsWear}
             selectedBtn={(e) => {
               console.log(e); this.validateHandle(e, 'accessories')
@@ -519,9 +538,15 @@ export default class UploadS3 extends Component {
 
           }}
             onPress={() => {
-              this.setState({
-                currentState: this.state.currentState + 1
-              })
+              if (this.state.sportsWear) {
+                this.setState({
+                  currentState: this.state.currentState + 1
+                })
+              }
+              else {
+                alert('Please select your answer to proceed next.')
+              }
+
             }}
           >
             <Text style={{ color: "white", textAlign: "center", paddingTop: 25 }}>
@@ -535,11 +560,13 @@ export default class UploadS3 extends Component {
 
 
     if (this.state.currentState === -2) {
+      console.log("caseee checkk===>>>> --222")
       return (
         <View
           style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
         >
-          <Text style={{ color: "black", fontSize: "20", margin: 20 }}>
+
+          <Text style={{ color: "black", fontSize: 20, margin: 20 }}>
             Enter your phone:
           </Text>
           <TextInput
@@ -550,9 +577,9 @@ export default class UploadS3 extends Component {
               borderWidth: 3,
               borderRadius: 10,
             }}
-            onChangeText={(text) => this.onPhoneChange(text)}
+            onChangeText={(text) => this.validateHandle(text, 'phonenumber')}
             value={this.state.enterPhone}
-            autoCompleteType="tel"
+            // autoCompleteType="tel"
             keyboardType="number-pad"
             placeholder="310-621-4107"
           />
@@ -569,9 +596,15 @@ export default class UploadS3 extends Component {
               borderRadius: 10,
             }}
             onPress={() => {
-              this.setState({
-                currentState: this.state.currentState + 1,
-              });
+              if (this.state.enterPhone) {
+                this.setState({
+                  currentState: this.state.currentState + 1,
+                });
+              }
+              else {
+                alert('Please enter your phone number to proceed next')
+              }
+
             }}
           >
             <Text style={{ fontSize: 20, color: "white" }}>NEXT</Text>
@@ -584,7 +617,7 @@ export default class UploadS3 extends Component {
         <View
           style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
         >
-          <Text style={{ color: "black", fontSize: "20", margin: 20 }}>
+          <Text style={{ color: "black", fontSize: 20, margin: 20 }}>
             Enter your email:
           </Text>
           <TextInput
@@ -595,7 +628,7 @@ export default class UploadS3 extends Component {
               borderWidth: 3,
               borderRadius: 10,
             }}
-            onChangeText={(text) => this.onEmailChange(text)}
+            onChangeText={(text) => this.validateHandle(text, 'email')}
             value={this.state.enterEmail}
             autoCompleteType="email"
             keyboardType="email-address"
@@ -614,8 +647,14 @@ export default class UploadS3 extends Component {
               borderRadius: 10,
             }}
             onPress={() => {
-              this.state.currentState = this.state.currentState + 1;
-              this.componentDidMount();
+              if (this.state.enterEmail) {
+                this.state.currentState = this.state.currentState + 1;
+                this.componentDidMount();
+              }
+              else {
+                alert('Please enter your email to proceed next')
+              }
+
             }}
           >
             <Text style={{ fontSize: 20, color: "white" }}>NEXT</Text>

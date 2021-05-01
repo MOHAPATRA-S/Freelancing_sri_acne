@@ -147,10 +147,13 @@ export default class CameraApp extends React.Component {
           heightScreen,
           rollAngle,
           yawAngle,
+          // step: this.state.step -1,
           facePosition: false,
         });
       }
     }
+  
+
     if (this.state.step === 2) {
       console.log("check case 2222222==>", (Number(parseFloat(yawAngle).toFixed(0)) < 345 && Number(parseFloat(yawAngle).toFixed(0)) >= 300))
 
@@ -826,34 +829,31 @@ export default class CameraApp extends React.Component {
             flex: 0.1,
           }}
         >
-          {/* {(this.state.step === 1 ||
-            this.state.step === 3 ||
-            this.state.step === 5) &&
-            this.state.facePosition ? ( */}
-          <TouchableOpacity
-            style={{
-              flex: 1,
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-            onPress={this.snap}
-          >
-            <Image
+          {this.state.facePosition === true && (this.state.step === 1 || this.state.step === 3 || this.state.step === 5) ? (
+            <TouchableOpacity
               style={{
-                height: 50,
-                width: 50,
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
               }}
-              source={{
-                uri:
-                  "https://cdn.iconscout.com/icon/premium/png-256-thumb/camera-2477673-2061935.png",
-              }}
-            ></Image>
-          </TouchableOpacity>
-          {/* )
-          
-           : (
-            <></>
-          )} */}
+              onPress={this.snap}
+            >
+              <Image
+                style={{
+                  height: 50,
+                  width: 50,
+                }}
+                source={{
+                  uri:
+                    "https://cdn.iconscout.com/icon/premium/png-256-thumb/camera-2477673-2061935.png",
+                }}
+              ></Image>
+            </TouchableOpacity>
+          )
+
+            : (
+              <></>
+            )}
         </View>
 
         {/* <View style={
