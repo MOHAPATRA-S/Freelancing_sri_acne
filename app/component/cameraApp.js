@@ -92,7 +92,124 @@ export default class CameraApp extends React.Component {
   };
 
   handleFacesDetected = async (faceDetectedValue) => {
-    // console.log("faceDetected Value =>", faceDetectedValue);
+    ///swagatika code here///
+
+    let faces = faceDetectedValue.faces[0];
+    // console.log("faces =>", faces);
+    let rollAngle = faces !== undefined ? faces.rollAngle : 0;
+    let yawAngle = faces !== undefined ? faces.yawAngle : 0;
+    let leftScreen = faces !== undefined ? faces.bounds.origin.x : 0;
+    let topScreen = faces !== undefined ? faces.bounds.origin.y : 0;
+    let widthScreen = faces !== undefined ? faces.bounds.size.width : 0;
+    let heightScreen = faces !== undefined ? faces.bounds.size.height : 0;
+    // console.log("check c==>", (Number(parseFloat(yawAngle).toFixed(0)) < 270), this.state.step, yawAngle, parseFloat(yawAngle).toFixed(0) < 100)
+
+    this.setState({
+      leftScreen,
+      topScreen,
+      widthScreen,
+      heightScreen,
+      rollAngle,
+      yawAngle,
+    });
+
+    let heightMax = 410;
+    let widthMax = 410;
+    let heightMin = 360;
+    let widthMin = 360;
+    if (this.state.step === 0) {
+      console.log('trucase check==>>0000 ', (Number(parseFloat(yawAngle).toFixed(0)) > 355 && Number(parseFloat(yawAngle).toFixed(0)) <= 360));
+      if (
+        // widthScreen < widthMax &&
+        // heightScreen < heightMax &&
+        // widthScreen >  &&
+        // heightScreen > 250&&
+        // this.state.step === 0
+        (Number(parseFloat(yawAngle).toFixed(0)) > 355 && Number(parseFloat(yawAngle).toFixed(0)) <= 360)
+      ) {
+        this.setState({
+          step: this.state.step + 1,
+          leftScreen,
+          topScreen,
+          widthScreen,
+          heightScreen,
+          rollAngle,
+          yawAngle,
+          facePosition: true,
+          faceDirection: "Look Straight",
+        });
+      }
+      else {
+        this.setState({
+          leftScreen,
+          topScreen,
+          widthScreen,
+          heightScreen,
+          rollAngle,
+          yawAngle,
+          facePosition: false,
+        });
+      }
+    }
+    if (this.state.step === 2) {
+      console.log("check case 2222222==>", (Number(parseFloat(yawAngle).toFixed(0)) < 345 && Number(parseFloat(yawAngle).toFixed(0)) >= 300))
+
+      if (Number(parseFloat(yawAngle).toFixed(0)) < 345 && Number(parseFloat(yawAngle).toFixed(0)) >= 300) {
+        this.setState({
+          step: this.state.step + 1,
+          leftScreen,
+          topScreen,
+          widthScreen,
+          heightScreen,
+          rollAngle,
+          yawAngle,
+          facePosition: true,
+          faceDirection: "Turn Left",
+        });
+
+      } else {
+        this.setState({
+          leftScreen,
+          topScreen,
+          widthScreen,
+          heightScreen,
+          rollAngle,
+          yawAngle,
+          facePosition: false,
+        });
+      }
+
+    }
+
+    if (this.state.step === 4) {
+      console.log("check case==>44444444", (Number(parseFloat(yawAngle).toFixed(0)) < 100 && Number(parseFloat(yawAngle).toFixed(0)) >= 45))
+
+      if (Number(parseFloat(yawAngle).toFixed(0)) < 100 && Number(parseFloat(yawAngle).toFixed(0)) >= 45) {
+        this.setState({
+          step: this.state.step + 1,
+          leftScreen,
+          topScreen,
+          widthScreen,
+          heightScreen,
+          rollAngle,
+          yawAngle,
+          facePosition: true,
+          faceDirection: "Turn Right",
+        });
+      }
+      else {
+        this.setState({
+          leftScreen,
+          topScreen,
+          widthScreen,
+          heightScreen,
+          rollAngle,
+          yawAngle,
+          facePosition: false,
+        });
+      }
+
+    }
 
     if (this.state.step === 6) {
       // console.log("Navigation => ", this.props);
@@ -116,241 +233,185 @@ export default class CameraApp extends React.Component {
       //   }
       // )
     }
-    let faces = faceDetectedValue.faces[0];
-    // console.log("faces =>", faces);
-    let rollAngle = faces !== undefined ? faces.rollAngle : 0;
-    let yawAngle = faces !== undefined ? faces.yawAngle : 0;
 
-    let leftScreen = faces !== undefined ? faces.bounds.origin.x : 0;
-    let topScreen = faces !== undefined ? faces.bounds.origin.y : 0;
-    let widthScreen = faces !== undefined ? faces.bounds.size.width : 0;
-    let heightScreen = faces !== undefined ? faces.bounds.size.height : 0;
 
-    this.setState({
-      leftScreen,
-      topScreen,
-      widthScreen,
-      heightScreen,
-      rollAngle,
-      yawAngle,
-    });
+    ///extra code
 
-    let heightMax = 410;
-    let widthMax = 410;
-    let heightMin = 360;
-    let widthMin = 360;
+    // if (this.state.step === 1) {
+    //   if (
+    //     // widthScreen < widthMax &&
+    //     // heightScreen < heightMax &&
+    //     // widthScreen > 360 &&
+    //     // heightScreen > 360 &&
+    //     // this.state.step === 1
+    //     widthScreen < widthMax &&
+    //     heightScreen < heightMax &&
+    //     widthScreen > 200 &&
+    //     heightScreen > 200 &&
+    //     this.state.step === 1
+    //   ) {
+    //     // console.log("Snapping Straigh Photo");
+    //     // await this.snap();
+    //     this.setState({
+    //       step: this.state.step + 1,
+    //       leftScreen,
+    //       topScreen,
+    //       widthScreen,
+    //       heightScreen,
+    //       rollAngle,
+    //       yawAngle,
+    //       facePosition: true,
+    //       // faceDirection: "Turn Left",
+    //     });
+    //   } else {
+    //     this.setState({
+    //       leftScreen,
+    //       topScreen,
+    //       widthScreen,
+    //       heightScreen,
+    //       rollAngle,
+    //       yawAngle,
+    //       facePosition: false,
+    //     });
+    //   }
+    // }
 
-    // console.log('YawAngle and RollAngle => ', rollAngle, yawAngle);
+    // if (this.state.step === 2) {
+    //   console.log("rollAngle =>", this.state.step);
+    //   // this.setState({
+    //   //   leftScreen,
+    //   //   topScreen,
+    //   //   widthScreen,
+    //   //   heightScreen,
+    //   //   rollAngle,
+    //   //   yawAngle,
+    //   // });
 
-    if (this.state.step === 0) {
-      // this.setState({
-      //   leftScreen,
-      //   topScreen,
-      //   widthScreen,
-      //   heightScreen,
-      //   rollAngle,
-      //   yawAngle,
-      // });
+    //   // console.log('face dection at 2', rollAngle, parseFloat(yawAngle).toFixed(0))
 
-      if (
-        widthScreen < widthMax &&
-        heightScreen < heightMax &&
-        widthScreen > 360 &&
-        heightScreen > 360 &&
-        this.state.step === 0
-      ) {
-        // console.log("Snapping Straigh Photo");
-        // await this.snap();
-        this.setState({
-          step: this.state.step + 1,
-          leftScreen,
-          topScreen,
-          widthScreen,
-          heightScreen,
-          rollAngle,
-          yawAngle,
-          facePosition: true,
-          faceDirection: "Look Straight",
-        });
-      }
+    //   if (
+    //     // widthScreen < widthMax &&zxc
+    //     // heightScreen < heightMax &&
+    //     // widthScreen > 300 &&
+    //     // heightScreen > 300 &&
+    //     parseFloat(yawAngle).toFixed(0) < -7.0
+    //   ) {
+    //     // console.log("snapping beffore ");
+    //     // await this.snap();
+    //     this.setState({
+    //       step: this.state.step + 1,
+    //       leftScreen,
+    //       topScreen,
+    //       widthScreen,
+    //       heightScreen,
+    //       rollAngle,
+    //       yawAngle,
+    //       facePosition: true,
+    //       faceDirection: "Turn Left",
+    //     });
+    //   } else {
+    //   }
+    // }
 
-      // else {
-      //   this.setState({
-      //     step: this.state.step - 1,
-      //   });
-      // }
-    }
+    // if (this.state.step === 3) {
+    //   console.log(
+    //     "face dection at 3",
+    //     yawAngle,
+    //     parseFloat(yawAngle).toFixed(0),
+    //   );
+    //   if (
+    //     // widthScreen < widthMax &&
+    //     // heightScreen < heightMax &&
+    //     // widthScreen > 300 &&
+    //     // heightScreen > 300 &&
+    //     parseFloat(yawAngle).toFixed(0) < -7.0
+    //   ) {
+    //     // console.log("snapping beffore ");
+    //     // await this.snap();
+    //     this.setState({
+    //       // step: this.state.step + 1,
+    //       leftScreen,
+    //       topScreen,
+    //       widthScreen,
+    //       heightScreen,
+    //       rollAngle,
+    //       yawAngle,
+    //       facePosition: true,
+    //     });
+    //   } else {
+    //     this.setState({
+    //       leftScreen,
+    //       topScreen,
+    //       widthScreen,
+    //       heightScreen,
+    //       rollAngle,
+    //       yawAngle,
+    //       facePosition: false,
+    //     });
+    //   }
+    // }
 
-    if (this.state.step === 1) {
-      if (
-        widthScreen < widthMax &&
-        heightScreen < heightMax &&
-        widthScreen > 360 &&
-        heightScreen > 360 &&
-        this.state.step === 1
-      ) {
-        // console.log("Snapping Straigh Photo");
-        // await this.snap();
-        this.setState({
-          // step: this.state.step + 1,
-          leftScreen,
-          topScreen,
-          widthScreen,
-          heightScreen,
-          rollAngle,
-          yawAngle,
-          facePosition: true,
-          // faceDirection: "Turn Left",
-        });
-      } else {
-        this.setState({
-          leftScreen,
-          topScreen,
-          widthScreen,
-          heightScreen,
-          rollAngle,
-          yawAngle,
-          facePosition: false,
-        });
-      }
-    }
+    // if (this.state.step === 4) {
+    //   // console.log("rollAngle =>", rollAngle);
+    //   // this.setState({
+    //   //   leftScreen,
+    //   //   topScreen,
+    //   //   widthScreen,
+    //   //   heightScreen,
+    //   //   rollAngle,
+    //   //   yawAngle,
+    //   // });
 
-    if (this.state.step === 2) {
-      // console.log("rollAngle =>", rollAngle);
-      // this.setState({
-      //   leftScreen,
-      //   topScreen,
-      //   widthScreen,
-      //   heightScreen,
-      //   rollAngle,
-      //   yawAngle,
-      // });
+    //   if (
+    //     widthScreen < widthMax &&
+    //     heightScreen < heightMax &&
+    //     // widthScreen > 300 &&
+    //     // heightScreen > 300 &&
+    //     parseFloat(yawAngle).toFixed(0) > 7.0
+    //   ) {
+    //     this.setState({
+    //       step: this.state.step + 1,
+    //       leftScreen,
+    //       topScreen,
+    //       widthScreen,
+    //       heightScreen,
+    //       rollAngle,
+    //       yawAngle,
+    //       facePosition: true,
+    //       faceDirection: "Turn Right",
+    //     });
+    //   }
+    // }
 
-      // console.log('face dection at 2', rollAngle, parseFloat(yawAngle).toFixed(0))
-
-      if (
-        // widthScreen < widthMax &&
-        // heightScreen < heightMax &&
-        // widthScreen > 300 &&
-        // heightScreen > 300 &&
-        parseFloat(yawAngle).toFixed(0) < -7.0
-      ) {
-        // console.log("snapping beffore ");
-        // await this.snap();
-        this.setState({
-          step: this.state.step + 1,
-          leftScreen,
-          topScreen,
-          widthScreen,
-          heightScreen,
-          rollAngle,
-          yawAngle,
-          facePosition: true,
-          faceDirection: "Turn Left",
-        });
-      } else {
-      }
-    }
-
-    if (this.state.step === 3) {
-      console.log(
-        "face dection at 3",
-        yawAngle,
-        parseFloat(yawAngle).toFixed(0),
-      );
-      if (
-        // widthScreen < widthMax &&
-        // heightScreen < heightMax &&
-        // widthScreen > 300 &&
-        // heightScreen > 300 &&
-        parseFloat(yawAngle).toFixed(0) < -7.0
-      ) {
-        // console.log("snapping beffore ");
-        // await this.snap();
-        this.setState({
-          // step: this.state.step + 1,
-          leftScreen,
-          topScreen,
-          widthScreen,
-          heightScreen,
-          rollAngle,
-          yawAngle,
-          facePosition: true,
-        });
-      } else {
-        this.setState({
-          leftScreen,
-          topScreen,
-          widthScreen,
-          heightScreen,
-          rollAngle,
-          yawAngle,
-          facePosition: false,
-        });
-      }
-    }
-
-    if (this.state.step === 4) {
-      // console.log("rollAngle =>", rollAngle);
-      // this.setState({
-      //   leftScreen,
-      //   topScreen,
-      //   widthScreen,
-      //   heightScreen,
-      //   rollAngle,
-      //   yawAngle,
-      // });
-
-      if (
-        widthScreen < widthMax &&
-        heightScreen < heightMax &&
-        // widthScreen > 300 &&
-        // heightScreen > 300 &&
-        parseFloat(yawAngle).toFixed(0) > 7.0
-      ) {
-        this.setState({
-          step: this.state.step + 1,
-          leftScreen,
-          topScreen,
-          widthScreen,
-          heightScreen,
-          rollAngle,
-          yawAngle,
-          facePosition: true,
-          faceDirection: "Turn Right",
-        });
-      }
-    }
-
-    if (this.state.step === 5) {
-      if (
-        widthScreen < widthMax &&
-        heightScreen < heightMax &&
-        parseFloat(yawAngle).toFixed(0) > 7.0
-      ) {
-        this.setState({
-          // step: this.state.step + 1,
-          leftScreen,
-          topScreen,
-          widthScreen,
-          heightScreen,
-          rollAngle,
-          yawAngle,
-          facePosition: true,
-        });
-      } else {
-        this.setState({
-          // step: this.state.step + 1,
-          leftScreen,
-          topScreen,
-          widthScreen,
-          heightScreen,
-          rollAngle,
-          yawAngle,
-          facePosition: false,
-        });
-      }
-    }
+    // if (this.state.step === 5) {
+    //   if (
+    //     widthScreen < widthMax &&
+    //     heightScreen < heightMax &&
+    //     parseFloat(yawAngle).toFixed(0) > 7.0
+    //   ) {
+    //     this.setState({
+    //       // step: this.state.step + 1,
+    //       leftScreen,
+    //       topScreen,
+    //       widthScreen,
+    //       heightScreen,
+    //       rollAngle,
+    //       yawAngle,
+    //       facePosition: true,
+    //     });
+    //   } else {
+    //     this.setState({
+    //       // step: this.state.step + 1,
+    //       leftScreen,
+    //       topScreen,
+    //       widthScreen,
+    //       heightScreen,
+    //       rollAngle,
+    //       yawAngle,
+    //       facePosition: false,
+    //     });
+    //   }
+    // }
   };
 
   render() {
@@ -360,7 +421,6 @@ export default class CameraApp extends React.Component {
     //   this.state.heightScreen,
     // );
 
-    console.log("Terms Hide =>", this.state.termsHide, this.state.step);
     if (this.state.step === -1) {
       if (this.state.termsHide) {
         return (
@@ -539,7 +599,7 @@ export default class CameraApp extends React.Component {
                 zIndex: 3,
               }}
               onPress={() => {
-                console.log("Testing");
+                console.log("Testing 2");
                 this.setState({
                   step: this.state.step + 1,
                 });
@@ -727,7 +787,7 @@ export default class CameraApp extends React.Component {
             mode: FaceDetector.Constants.Mode.accurate,
             detectLandmarks: FaceDetector.Constants.Landmarks.none,
             runClassifications: FaceDetector.Constants.Classifications.none,
-            minDetectionInterval: 100,
+            minDetectionInterval: 1000,
             tracking: true,
           }}
           ref={(ref) => {
@@ -743,16 +803,20 @@ export default class CameraApp extends React.Component {
             zIndex: 5,
           }}
         >
-          {(this.state.step === 1 ||
+          {console.log("this.state==>", this.state.step, this.state.facePosition)}
+          {/* {(this.state.step === 1 ||
             this.state.step === 3 ||
             this.state.step === 5) &&
-          this.state.facePosition ? (
-            <Text style={{ color: "white", fontSize: 24, fontWeight: "bold" }}>
-              Take Photo Now.
-            </Text>
-          ) : (
-            <View></View>
-          )}
+            this.state.facePosition ? ( */}
+          {this.state.facePosition === true && (this.state.step === 1 || this.state.step === 3 || this.state.step === 5) ?
+            (
+              <Text style={{ color: "white", fontSize: 24, fontWeight: "bold" }}>
+                Take Photo Now.
+              </Text>)
+
+            : (
+              <View></View>
+            )}
         </View>
 
         <View
@@ -762,32 +826,34 @@ export default class CameraApp extends React.Component {
             flex: 0.1,
           }}
         >
-          {(this.state.step === 1 ||
+          {/* {(this.state.step === 1 ||
             this.state.step === 3 ||
             this.state.step === 5) &&
-          this.state.facePosition ? (
-            <TouchableOpacity
+            this.state.facePosition ? ( */}
+          <TouchableOpacity
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+            onPress={this.snap}
+          >
+            <Image
               style={{
-                flex: 1,
-                justifyContent: "center",
-                alignItems: "center",
+                height: 50,
+                width: 50,
               }}
-              onPress={this.snap}
-            >
-              <Image
-                style={{
-                  height: 50,
-                  width: 50,
-                }}
-                source={{
-                  uri:
-                    "https://cdn.iconscout.com/icon/premium/png-256-thumb/camera-2477673-2061935.png",
-                }}
-              ></Image>
-            </TouchableOpacity>
-          ) : (
+              source={{
+                uri:
+                  "https://cdn.iconscout.com/icon/premium/png-256-thumb/camera-2477673-2061935.png",
+              }}
+            ></Image>
+          </TouchableOpacity>
+          {/* )
+          
+           : (
             <></>
-          )}
+          )} */}
         </View>
 
         {/* <View style={
@@ -871,15 +937,16 @@ export default class CameraApp extends React.Component {
         <View
           style={{
             //To make Oval Shape
+            alignSelf: "center",
             zIndex: 2,
             top: height / 2.5,
-            left: 50,
+            // left: 50,
             width: 300,
-            height: 230,
+            height: 200,
             backgroundColor: "transparent",
             borderColor: "black",
             borderWidth: 5,
-            borderRadius: 100,
+            borderRadius: 300 / 2,
             position: "absolute",
             transform: [
               {

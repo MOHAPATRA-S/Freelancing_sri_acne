@@ -47,7 +47,8 @@ export default class UploadS3 extends Component {
       acneTime: "",
       acneLevel: "",
       otherAcne: "",
-      age: 0,
+      age: '0',
+      ageError: '',
       sportsWear: ""
     };
 
@@ -134,6 +135,61 @@ export default class UploadS3 extends Component {
     });
   };
 
+  validateHandle = (text, type) => {
+    console.log("text,type===>", text, type)
+    if (type === 'age') {
+      if (text) {
+        this.setState({ age: text, ageError: '' })
+      } else {
+        this.setState({ ageError: 'Please enter your age.' })
+      }
+
+    }
+    if (type === 'sex') {
+      if (text.label) {
+        this.setState({ maleOrFemale: text.label, })
+      } else {
+        alert('Please select your sex.')
+      }
+
+    }
+    if (type === 'sufferedTime') {
+      if (text.label) {
+        this.setState({ acneTime: text.label, })
+      } else {
+        alert('Please select your answer to proceed next.')
+      }
+
+    }
+    if (type === 'sufferingFrom') {
+      if (text.label) {
+        this.setState({ acneLevel: text.label, })
+      } else {
+        alert('Please select your answer to proceed next.')
+      }
+
+    }
+    if (type === 'skinConcerns') {
+      if (text.label) {
+        this.setState({ otherAcne: text.label, })
+      } else {
+        alert('Please select your answer to proceed next.')
+      }
+
+    }
+
+    if (type === 'accessories') {
+      if (text.label) {
+        this.setState({ sportsWear: text.label, })
+      } else {
+        alert('Please select your answer to proceed next.')
+      }
+
+    }
+  }
+
+
+
   render() {
     // console.log("Email => ", this.state.enterPhone);
     // console.log("Phone => ", this.state.enterEmail);
@@ -182,11 +238,15 @@ export default class UploadS3 extends Component {
             borderBottomColor: "black"
 
           }}
+          value={this.state.age}
             placeholder="0"
             keyboardType="number-pad"
+            onChangeText={(text) => this.validateHandle(text, 'age')}
           >
           </TextInput>
-
+          <Text>
+            {this.state.ageError}
+          </Text>
           <TouchableOpacity style={{
             backgroundColor: "black",
             width: 100,
@@ -195,9 +255,13 @@ export default class UploadS3 extends Component {
             marginTop: 50,
           }}
             onPress={() => {
+              if(this.state.age){
               this.setState({
                 currentState: this.state.currentState + 1
-              })
+              })}
+              else{
+                alert('Please select your answer to proceed next')
+              }
             }}
           >
 
@@ -257,13 +321,16 @@ export default class UploadS3 extends Component {
             What is your sex?
           </Text>
           <RadioButtonRN
+           initial={-1}
+           animationTypes={['pulse', 'rotate']}
             data={data}
             selectedBtn={(e) => {
-              console.log(e);
-              this.setState({
-                maleOrFemale: e
-              })
+              console.log(e); this.validateHandle(e, 'sex')
+              // this.setState({
+              //   maleOrFemale: e
+              // })
             }}
+            
           />
 
 
@@ -272,12 +339,14 @@ export default class UploadS3 extends Component {
           </Text>
           <RadioButtonRN
             data={dataAcne}
+            initial={-1}
+            animationTypes={['pulse', 'rotate']}
             selectedBtn={(e) => {
-              console.log(e);
-              this.setState({
-                acneTime
-                  : e
-              })
+              console.log(e); this.validateHandle(e, 'sufferedTime')
+              // this.setState({
+              //   acneTime
+              //     : e
+              // })
             }}
           />
 
@@ -357,13 +426,15 @@ export default class UploadS3 extends Component {
             What do you think you are suffering from, mild, moderate, or severe acne?
           </Text>
           <RadioButtonRN
+           initial={-1}
+           animationTypes={['pulse', 'rotate']}
             data={acneLevel}
             selectedBtn={(e) => {
-              console.log(e);
-              this.setState({
-                acneLevel
-                  : e
-              })
+              console.log(e); this.validateHandle(e, 'sufferingFrom')
+              // this.setState({
+              //   acneLevel
+              //     : e
+              // })
             }}
           />
 
@@ -371,13 +442,15 @@ export default class UploadS3 extends Component {
             Do you have other skin concerns in addition to acne: such as rosacea, seborrhea, fungal acne?
           </Text>
           <RadioButtonRN
+           initial={-1}
+           animationTypes={['pulse', 'rotate']}
             data={otherAcne}
             selectedBtn={(e) => {
-              console.log(e);
-              this.setState({
-                otherAcne
-                  : e
-              })
+              console.log(e); this.validateHandle(e, 'skinConcerns')
+              // this.setState({
+              //   otherAcne
+              //     : e
+              // })
             }}
           />
 
@@ -423,13 +496,15 @@ export default class UploadS3 extends Component {
             Do you frequently wear accessories on your face/head like masks, sportswear, etc.?
           </Text>
           <RadioButtonRN
+           initial={-1}
+           animationTypes={['pulse', 'rotate']}
             data={sportsWear}
             selectedBtn={(e) => {
-              console.log(e);
-              this.setState({
-                sportsWear
-                  : e
-              })
+              console.log(e); this.validateHandle(e, 'accessories')
+              // this.setState({
+              //   sportsWear
+              //     : e
+              // })
             }}
           />
 
@@ -554,8 +629,8 @@ export default class UploadS3 extends Component {
         {this.state.currentState === 0 ? (
           <Text style={{ color: "brown", fontSize: 30 }}>Uploading Images</Text>
         ) : (
-            <Text style={{ color: "green", fontSize: 30 }}>Uploading Data</Text>
-          )}
+          <Text style={{ color: "green", fontSize: 30 }}>Uploading Data</Text>
+        )}
 
         <ActivityIndicator size="large"></ActivityIndicator>
       </View>
