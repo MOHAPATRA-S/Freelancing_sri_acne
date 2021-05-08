@@ -2,7 +2,7 @@
   "expo": {
     "name": "SRIAcne-Yog",
     "slug": "SRIAcne",
-    "version": "1.0.2",
+    "version": "1.0.10",
     "orientation": "portrait",
     "icon": "./assets/icon-new-working.png",
     "splash": {
@@ -18,10 +18,11 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "buildNumber": "1.0.2",
+      "buildNumber": "1.0.10",
       "bundleIdentifier": "com.SkinResearchInstitute.SRIAcne",
       "infoPlist": {
-        "NSCameraUsageDescription": "This app uses the camera to scan for skin acne."
+        "NSCameraUsageDescription": "This app uses the camera to scan for skin acne.",
+        "ITSAppUsesNonExemptEncryption": false
       }
     },
     "android": {
