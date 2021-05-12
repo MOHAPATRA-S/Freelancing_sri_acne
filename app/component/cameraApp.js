@@ -103,7 +103,7 @@ export default class CameraApp extends React.Component {
     let widthScreen = faces !== undefined ? faces.bounds.size.width : 0;
     let heightScreen = faces !== undefined ? faces.bounds.size.height : 0;
     // console.log("check c==>", (Number(parseFloat(yawAngle).toFixed(0)) < 270), this.state.step, yawAngle, parseFloat(yawAngle).toFixed(0) < 100)
-// alert(yawAngle)
+    // alert(yawAngle)
     this.setState({
       leftScreen,
       topScreen,
@@ -125,8 +125,7 @@ export default class CameraApp extends React.Component {
         // widthScreen >  &&
         // heightScreen > 250&&
         // this.state.step === 0
-        // (Number(parseFloat(yawAngle).toFixed(0)) > 355 && Number(parseFloat(yawAngle).toFixed(0)) <= 370)
-
+        (Number(parseFloat(yawAngle).toFixed(0)) >= 0 && Number(parseFloat(yawAngle).toFixed(0)) <= 4) ||
         (Number(parseFloat(yawAngle).toFixed(0)) > 355 && Number(parseFloat(yawAngle).toFixed(0)) <= 360)
       ) {
         this.setState({
@@ -157,9 +156,13 @@ export default class CameraApp extends React.Component {
 
 
     if (this.state.step === 2) {
+      // alert(yawAngle)
       console.log("check case 2222222==>", (Number(parseFloat(yawAngle).toFixed(0)) < 345 && Number(parseFloat(yawAngle).toFixed(0)) >= 300))
 
-      if (Number(parseFloat(yawAngle).toFixed(0)) < 345 && Number(parseFloat(yawAngle).toFixed(0)) >= 300) {
+      if (
+        (Number(parseFloat(yawAngle).toFixed(0)) > -45 && Number(parseFloat(yawAngle).toFixed(0)) <= -30)
+        || (Number(parseFloat(yawAngle).toFixed(0)) < 345 && Number(parseFloat(yawAngle).toFixed(0)) >= 300)
+      ) {
         this.setState({
           step: this.state.step + 1,
           leftScreen,
@@ -189,7 +192,11 @@ export default class CameraApp extends React.Component {
     if (this.state.step === 4) {
       console.log("check case==>44444444", (Number(parseFloat(yawAngle).toFixed(0)) < 100 && Number(parseFloat(yawAngle).toFixed(0)) >= 45))
 
-      if (Number(parseFloat(yawAngle).toFixed(0)) < 100 && Number(parseFloat(yawAngle).toFixed(0)) >= 45) {
+      if (
+        (Number(parseFloat(yawAngle).toFixed(0)) < 45 && Number(parseFloat(yawAngle).toFixed(0)) >= 30)
+        ||
+        (Number(parseFloat(yawAngle).toFixed(0)) < 100 && Number(parseFloat(yawAngle).toFixed(0)) >= 45)
+      ) {
         this.setState({
           step: this.state.step + 1,
           leftScreen,
