@@ -9,7 +9,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import Results from "./results";
 
-import RadioButtonRN from 'radio-buttons-react-native';
+import { RadioButton } from 'react-native-paper';
 
 import {
   Platform,
@@ -23,6 +23,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
 } from "react-native";
+import { InputGroup } from "react-bootstrap";
 
 export default class UploadS3 extends Component {
   constructor(props) {
@@ -47,7 +48,9 @@ export default class UploadS3 extends Component {
       otherAcne: "",
       age: '',
       ageError: '',
-      sportsWear: ""
+      sportsWear: "",
+      checkedone: '',
+      checkedtwo:''
     };
 
     // console.log("props =>", this.props);
@@ -144,16 +147,16 @@ export default class UploadS3 extends Component {
 
     }
     if (type === 'sex') {
-      if (text.label) {
-        this.setState({ maleOrFemale: text.label, })
+      if (text) {
+        this.setState({ maleOrFemale: text, })
       } else {
         this.setState({ maleOrFemale: '' })
       }
 
     }
     if (type === 'sufferedTime') {
-      if (text.label) {
-        this.setState({ acneTime: text.label, })
+      if (text) {
+        this.setState({ acneTime: text, })
       } else {
         this.setState({ acneTime: '', })
 
@@ -161,16 +164,16 @@ export default class UploadS3 extends Component {
 
     }
     if (type === 'sufferingFrom') {
-      if (text.label) {
-        this.setState({ acneLevel: text.label, })
+      if (text) {
+        this.setState({ acneLevel: text, })
       } else {
         this.setState({ acneLevel: '', })
       }
 
     }
     if (type === 'skinConcerns') {
-      if (text.label) {
-        this.setState({ otherAcne: text.label, })
+      if (text) {
+        this.setState({ otherAcne: text, })
       } else {
         this.setState({ otherAcne: '', })
         // alert('Please select your answer to proceed next.')
@@ -179,8 +182,8 @@ export default class UploadS3 extends Component {
     }
 
     if (type === 'accessories') {
-      if (text.label) {
-        this.setState({ sportsWear: text.label, })
+      if (text) {
+        this.setState({ sportsWear: text, })
       } else {
         this.setState({ sportsWear: '', })
 
@@ -334,47 +337,77 @@ export default class UploadS3 extends Component {
 
 
       return (
-        <View style={{ flex: 1, justifyContent: "center" }}>
-          <Text style={{ fontSize: 15 }}>
+        <View style={{ flex: 1, width:'80%',marginTop:50, alignSelf:'center',alignItems:'flex-start',}}>
+          <Text style={{ fontSize: 15,}}>
             What is your sex?
           </Text>
-          <RadioButtonRN
-            animationTypes={['pulse', 'zoomIn']}
-            data={data}
-            selectedBtn={(e) => {
-              console.log(e); this.validateHandle(e, 'sex')
-              // this.setState({
-              //   maleOrFemale: e
-              // })
-            }}
-
-          />
-
-
+          <View style={{marginTop:5,flexDirection:'row',justifyContent:'flex-start',alignItems:'flex-start',}}>
+            <RadioButton
+              value="first"
+              color={'blue'}
+              status={this.state.checkedone === 'first' ? 'checked' : 'unchecked'}
+              onPress={() => {this.setState({ checkedone: 'first' }); this.validateHandle('Male', 'sex')}}
+            />
+            <Text style={{marginTop:8}}>
+              {'Male'}
+            </Text>
+          </View>
+          <View style={{marginTop:5,flexDirection:'row',justifyContent:'flex-start',alignItems:'flex-start',}}>
+            <RadioButton
+              value="second"
+              color={'blue'}
+              status={this.state.checkedone === 'second' ? 'checked' : 'unchecked'}
+              onPress={() => {this.setState({ checkedone: 'second' });this.validateHandle('Female', 'sex')}}
+            />
+            <Text style={{marginTop:8}}>
+              {'Female'}
+            </Text>
+          </View>
 
           <Text style={{ fontSize: 15, marginTop: 10 }}>
             How long have you suffered from acne?
           </Text>
-
-          <RadioButtonRN
-            data={dataAcne}
-            animationTypes={['pulse', 'zoomIn']}
-            selectedBtn={(e) => {
-              this.validateHandle(e, 'sufferedTime')
-              //    console.log(e);
-              //    // this.setState({
-              //    //   acneTimemf
-              //    //     : e
-              //    // })
-            }}
-          />
+          <View style={{marginTop:5,flexDirection:'row',justifyContent:'flex-start',alignItems:'flex-start',}}>
+            <RadioButton
+              value="three"
+              color={'blue'}
+              status={this.state.checkedtwo === 'three' ? 'checked' : 'unchecked'}
+              onPress={() => {this.setState({ checkedtwo: 'three' });this.validateHandle('Less than 3 months', 'sufferedTime')}}
+            />
+            <Text style={{marginTop:8}}>
+              {'Less than 3 months'}
+            </Text>
+          </View>
+          <View style={{marginTop:5,flexDirection:'row',justifyContent:'flex-start',alignItems:'flex-start',}}>
+            <RadioButton
+              value="four"
+              color={'blue'}
+              status={this.state.checkedtwo === 'four' ? 'checked' : 'unchecked'}
+              onPress={() =>{ this.setState({ checkedtwo: 'four' });this.validateHandle('3-12 months', 'sufferedTime')}}
+            />
+            <Text style={{marginTop:8}}>
+              {'3-12 months'}
+            </Text>
+          </View>
+          <View style={{marginTop:5,flexDirection:'row',justifyContent:'flex-start',alignItems:'flex-start',}}>
+            <RadioButton
+              value="five"
+              color={'blue'}
+              status={this.state.checkedtwo === 'five' ? 'checked' : 'unchecked'}
+              onPress={() => {this.setState({ checkedtwo: 'five' });this.validateHandle('3-12 months', 'Over a year')}}
+            />
+            <Text style={{marginTop:8}}>
+              {'Over a year'}
+            </Text>
+          </View>
 
           <TouchableOpacity style={{
             backgroundColor: "black",
             width: 100,
             height: 70,
             borderRadius: 5,
-            marginLeft: 100,
+            // marginLeft: 100,
+          
             marginTop: 50,
 
           }}
@@ -434,14 +467,14 @@ export default class UploadS3 extends Component {
           label: 'none',
         }
       ];
-console.log('')
+      console.log('')
       return (
         <View>
 
           <Text style={{ fontSize: 15, marginTop: 100 }}>
             What do you think you are suffering from, mild, moderate, or severe acne?
           </Text>
-          <RadioButtonRN
+          {/* <RadioButtonRN
             animationTypes={['pulse', 'zoomIn']}
             data={acneLevel}
             selectedBtn={(e) => {
@@ -451,12 +484,12 @@ console.log('')
               //     : e
               // })
             }}
-          />
+          /> */}
 
           <Text style={{ fontSize: 15, }}>
             Do you have other skin concerns in addition to acne: such as rosacea, seborrhea, fungal acne?
           </Text>
-          <RadioButtonRN
+          {/* <RadioButtonRN
             animationTypes={['pulse', 'rotate']}
             data={otherAcne}
             selectedBtn={(e) => {
@@ -466,7 +499,7 @@ console.log('')
               //     : e
               // })
             }}
-          />
+          /> */}
 
           <TouchableOpacity style={{
             backgroundColor: "black",
@@ -515,7 +548,7 @@ console.log('')
           <Text style={{ fontSize: 15, marginTop: 100 }}>
             Do you frequently wear accessories on your face/head like masks, sportswear, etc.?
           </Text>
-          <RadioButtonRN
+          {/* <RadioButtonRN
             animationTypes={['pulse', 'zoomIn']}
             data={sportsWear}
             selectedBtn={(e) => {
@@ -525,7 +558,7 @@ console.log('')
               //     : e
               // })
             }}
-          />
+          /> */}
 
 
           <TouchableOpacity style={{

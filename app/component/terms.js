@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         // margin: 10,
-        // alignItems: 'center',
+        alignItems: 'center',
         // justifyContent: 'center',
         // paddingTop: Constants.statusBarHeight,
         // backgroundColor: '#def',

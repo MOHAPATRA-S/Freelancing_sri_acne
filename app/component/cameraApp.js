@@ -10,7 +10,6 @@ import {
   Dimensions,
   TextInput,
   // Button,
-  Image,
   TouchableOpacity,
 } from "react-native";
 
@@ -21,6 +20,7 @@ const { height, width } = Dimensions.get("window");
 console.log("Width, Height =>", width, height);
 
 import Terms from "./terms";
+import { Image } from "react-bootstrap";
 
 export default class CameraApp extends React.Component {
   constructor(props) {
@@ -465,8 +465,15 @@ export default class CameraApp extends React.Component {
               // disabled={!this.state.isSelected}
               onPress={() => {
                 console.log("Testing");
-                this.setState({
-                  step: this.state.step + 1,
+                // this.setState({
+                //   step: this.state.step + 1,
+                // });
+                this.props.navigation.navigate("UploadS3", {
+                  navigation: this.props.navigation,
+                  photoStraight: this.state.photoStraight,
+                  photoLeft: this.state.photoLeft,
+                  photoRight: this.state.photoRight,
+                  navigation: this.props.navigation,
                 });
               }}
             >
@@ -476,7 +483,7 @@ export default class CameraApp extends React.Component {
         );
       } else {
         return (
-          <View style={{ flex: 1 }}>
+          <View style={{ flex: 1,alignContent:'center',justifyContent:'center',alignItems:'center' }}>
             <Terms hide={this.state.termsHide}></Terms>
 
             <TouchableOpacity
@@ -485,7 +492,7 @@ export default class CameraApp extends React.Component {
                 height: 50,
                 backgroundColor: "goldenrod",
                 marginBottom: 20,
-                marginLeft: width / 3,
+                // marginLeft: width / 3,
                 // flex: 1,
                 justifyContent: "center",
                 alignItems: "center",
@@ -498,7 +505,7 @@ export default class CameraApp extends React.Component {
                 });
               }}
             >
-              <Text style={{ flex: 1, margin: 15 }}>Accept</Text>
+              <Text style={{ textAlign:'center' }}>Accept</Text>
             </TouchableOpacity>
           </View>
         );
@@ -508,15 +515,24 @@ export default class CameraApp extends React.Component {
     if (this.state.step === -2) {
       return (
         <View style={{ flex: 1, zIndex: 1 }}>
-          <Image
+          {/* <Image
             style={{
               width: "100%",
               height: "100%",
               zIndex: 2,
-              marginBottom: 30,
+              // marginBottom: 30,
             }}
             source={require("../images/thirdScreen.jpg")}
-          ></Image>
+          ></Image> */}
+            <Image
+          
+          style={{
+            width: "100%",
+            height: "100%",
+            zIndex: 2,
+          }}
+          src={require("../images/thirdScreen.jpg")}
+        ></Image>
           {height > 1200 ? (
             <TouchableOpacity
               style={{
@@ -588,7 +604,7 @@ export default class CameraApp extends React.Component {
     if (this.state.step === -3) {
       return (
         <View style={{ flex: 1, zIndex: 1 }}>
-          <Image
+          {/* <Image
             style={{
               width: "100%",
               height: "90%",
@@ -596,7 +612,16 @@ export default class CameraApp extends React.Component {
               margin: 30,
             }}
             source={require("../images/secondScreen.jpg")}
-          ></Image>
+          ></Image> */}
+           <Image
+          
+          style={{
+            width: "100%",
+            height: "100%",
+            zIndex: 2,
+          }}
+          src={require("../images/secondScreen.jpg")}
+        ></Image>
           {height > 1200 ? (
             <TouchableOpacity
               style={{
@@ -669,12 +694,13 @@ export default class CameraApp extends React.Component {
       return (
         <View style={{ flex: 1, zIndex: 1 }}>
           <Image
+          
             style={{
               width: "100%",
               height: "100%",
               zIndex: 2,
             }}
-            source={require("../images/firstScreen.jpg")}
+            src={require("../images/firstScreen.jpg")}
           ></Image>
 
           {height > 1200 ? (
@@ -790,7 +816,7 @@ export default class CameraApp extends React.Component {
 
     return (
       <View style={styles.container}>
-        <Camera
+        {/* <Camera
           style={styles.camera}
           type={Camera.Constants.Type.front}
           onFacesDetected={this.handleFacesDetected}
@@ -805,7 +831,7 @@ export default class CameraApp extends React.Component {
           ref={(ref) => {
             this.camera = ref;
           }}
-        ></Camera>
+        ></Camera> */}
 
         <View
           style={{
