@@ -27,6 +27,7 @@
     "react-native-aws3": "0.0.9",
     "react-native-elements": "^3.3.0",
     "react-native-gesture-handler": "~1.10.2",
+    "react-native-keyboard-aware-scroll-view": "^0.9.4",
     "react-native-screens": "~3.0.0",
     "react-native-web": "~0.13.12",
     "react-redux": "^7.2.1",

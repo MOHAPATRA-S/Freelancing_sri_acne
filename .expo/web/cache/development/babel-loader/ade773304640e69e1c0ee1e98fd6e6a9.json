@@ -1,0 +1,1 @@
+{"ast":null,"code":"export var SET_USER_NAME = \"SET_USER_NAME\";","map":{"version":3,"sources":["/Users/thinksysuser/Desktop/swagatika/Freelancing_sri_acne/app/actions/types.js"],"names":["SET_USER_NAME"],"mappings":"AAAA,OAAO,IAAMA,aAAa,GAAG,eAAtB","sourcesContent":["export const SET_USER_NAME = \"SET_USER_NAME\";\n"]},"metadata":{},"sourceType":"module"}

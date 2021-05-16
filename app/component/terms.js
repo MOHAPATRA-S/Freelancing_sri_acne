@@ -27,11 +27,9 @@ export default class Terms extends React.Component {
             isSelected: false
         }
 
-        // console.log.log('Terms SErvices =>', props)
     }
 
     setSelection = (e) => {
-        console.log('SetSelecton')
         this.setState({
             isSelected: !this.state.isSelected
         })
@@ -39,16 +37,12 @@ export default class Terms extends React.Component {
 
     render() {
 
-        console.log('this.props.hide =>', this.props.hide)
 
         if (this.props.hide) {
             return <CheckBox
                 checked={this.state.isSelected}
                 onPress={() => {
-                    // console.log(
-                    //   "Checkbox value change => ",
-                    //   this.state.isSelected,
-                    // );
+                  
                     this.setState({
                         isSelected: !this.state.isSelected,
                     });
@@ -105,10 +99,7 @@ export default class Terms extends React.Component {
                 <CheckBox
                     checked={this.state.isSelected}
                     onPress={() => {
-                        // console.log(
-                        //   "Checkbox value change => ",
-                        //   this.state.isSelected,
-                        // );
+                       
                         this.setState({
                             isSelected: !this.state.isSelected,
                         });

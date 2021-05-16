@@ -1,6 +1,7 @@
 import { throwIfAudioIsDisabled } from "expo-av/build/Audio/AudioAvailability";
 import React, { Component, useState, Fragment, useEffect, useRef } from "react";
 import * as FaceDetector from "expo-face-detector";
+import { Entypo } from '@expo/vector-icons';
 
 import {
   Platform,
@@ -18,7 +19,6 @@ import { Camera } from "expo-camera";
 
 const { height, width } = Dimensions.get("window");
 
-console.log("Width, Height =>", width, height);
 
 import Terms from "./terms";
 
@@ -56,14 +56,11 @@ export default class CameraApp extends React.Component {
   }
 
   snap = async () => {
-    // console.log("Snapping a photo =>", this.camera);
     if (this.camera) {
       try {
         let photo = await this.camera.takePictureAsync();
-        console.log("Photo Snapped => ", photo);
 
         if (this.state.step === 1) {
-          console.log("Straight Photo");
           this.setState({
             photoStraight: photo.uri,
             step: this.state.step + 1,
@@ -71,7 +68,6 @@ export default class CameraApp extends React.Component {
             facePosition: false,
           });
         } else if (this.state.step === 3) {
-          console.log("photo Lefft Photo");
           this.setState({
             photoLeft: photo.uri,
             step: this.state.step + 1,
@@ -79,14 +75,12 @@ export default class CameraApp extends React.Component {
             facePosition: false,
           });
         } else if (this.state.step === 5) {
-          console.log("photo right Photo");
           this.setState({
             photoRight: photo.uri,
             step: this.state.step + 1,
           });
         }
       } catch (e) {
-        console.log("Exception e =>", e);
       }
     }
   };
@@ -95,14 +89,12 @@ export default class CameraApp extends React.Component {
     ///swagatika code here///
 
     let faces = faceDetectedValue.faces[0];
-    // console.log("faces =>", faces);
     let rollAngle = faces !== undefined ? faces.rollAngle : 0;
     let yawAngle = faces !== undefined ? faces.yawAngle : 0;
     let leftScreen = faces !== undefined ? faces.bounds.origin.x : 0;
     let topScreen = faces !== undefined ? faces.bounds.origin.y : 0;
     let widthScreen = faces !== undefined ? faces.bounds.size.width : 0;
     let heightScreen = faces !== undefined ? faces.bounds.size.height : 0;
-    // console.log("check c==>", (Number(parseFloat(yawAngle).toFixed(0)) < 270), this.state.step, yawAngle, parseFloat(yawAngle).toFixed(0) < 100)
     // alert(yawAngle)
     this.setState({
       leftScreen,
@@ -118,15 +110,14 @@ export default class CameraApp extends React.Component {
     let heightMin = 360;
     let widthMin = 360;
     if (this.state.step === 0) {
-      console.log('trucase check==>>0000 ', (Number(parseFloat(yawAngle).toFixed(0)) > 355 && Number(parseFloat(yawAngle).toFixed(0)) <= 360));
       if (
         // widthScreen < widthMax &&
         // heightScreen < heightMax &&
         // widthScreen >  &&
         // heightScreen > 250&&
         // this.state.step === 0
-        (Number(parseFloat(yawAngle).toFixed(0)) >= 0 && Number(parseFloat(yawAngle).toFixed(0)) <= 4) ||
-        (Number(parseFloat(yawAngle).toFixed(0)) > 355 && Number(parseFloat(yawAngle).toFixed(0)) <= 360)
+        Platform.OS === 'ios' ? (Number(parseFloat(yawAngle).toFixed(0)) >= 0 && Number(parseFloat(yawAngle).toFixed(0)) <= 4) :
+          (Number(parseFloat(yawAngle).toFixed(0)) > 355 && Number(parseFloat(yawAngle).toFixed(0)) <= 360)
       ) {
         this.setState({
           step: this.state.step + 1,
@@ -157,11 +148,10 @@ export default class CameraApp extends React.Component {
 
     if (this.state.step === 2) {
       // alert(yawAngle)
-      console.log("check case 2222222==>", (Number(parseFloat(yawAngle).toFixed(0)) < 345 && Number(parseFloat(yawAngle).toFixed(0)) >= 300))
 
       if (
-        (Number(parseFloat(yawAngle).toFixed(0)) > -45 && Number(parseFloat(yawAngle).toFixed(0)) <= -30)
-        || (Number(parseFloat(yawAngle).toFixed(0)) < 345 && Number(parseFloat(yawAngle).toFixed(0)) >= 300)
+        Platform.OS === 'ios' ? (Number(parseFloat(yawAngle).toFixed(0)) > -45 && Number(parseFloat(yawAngle).toFixed(0)) <= -30) :
+          (Number(parseFloat(yawAngle).toFixed(0)) < 345 && Number(parseFloat(yawAngle).toFixed(0)) >= 300)
       ) {
         this.setState({
           step: this.state.step + 1,
@@ -190,12 +180,11 @@ export default class CameraApp extends React.Component {
     }
 
     if (this.state.step === 4) {
-      console.log("check case==>44444444", (Number(parseFloat(yawAngle).toFixed(0)) < 100 && Number(parseFloat(yawAngle).toFixed(0)) >= 45))
 
       if (
-        (Number(parseFloat(yawAngle).toFixed(0)) < 45 && Number(parseFloat(yawAngle).toFixed(0)) >= 30)
-        ||
-        (Number(parseFloat(yawAngle).toFixed(0)) < 100 && Number(parseFloat(yawAngle).toFixed(0)) >= 45)
+        Platform.OS === 'ios' ? (Number(parseFloat(yawAngle).toFixed(0)) < 45 && Number(parseFloat(yawAngle).toFixed(0)) >= 30)
+          :
+          (Number(parseFloat(yawAngle).toFixed(0)) < 100 && Number(parseFloat(yawAngle).toFixed(0)) >= 45)
       ) {
         this.setState({
           step: this.state.step + 1,
@@ -224,7 +213,7 @@ export default class CameraApp extends React.Component {
     }
 
     if (this.state.step === 6) {
-      // console.log("Navigation => ", this.props);
+      
       // this.props.navigation.navigate("Results");
 
       this.props.navigation.navigate("UploadS3", {
@@ -262,7 +251,6 @@ export default class CameraApp extends React.Component {
     //     heightScreen > 200 &&
     //     this.state.step === 1
     //   ) {
-    //     // console.log("Snapping Straigh Photo");
     //     // await this.snap();
     //     this.setState({
     //       step: this.state.step + 1,
@@ -289,7 +277,6 @@ export default class CameraApp extends React.Component {
     // }
 
     // if (this.state.step === 2) {
-    //   console.log("rollAngle =>", this.state.step);
     //   // this.setState({
     //   //   leftScreen,
     //   //   topScreen,
@@ -441,7 +428,6 @@ export default class CameraApp extends React.Component {
           >
             <TouchableOpacity
               onPress={() => {
-                console.log("State => ", this.state.termsHide);
                 this.setState({
                   termsHide: false,
                 });
@@ -464,10 +450,10 @@ export default class CameraApp extends React.Component {
               }}
               // disabled={!this.state.isSelected}
               onPress={() => {
-                console.log("Testing");
                 this.setState({
                   step: this.state.step + 1,
                 });
+
               }}
             >
               <Text style={{ flex: 1, margin: 15 }}>Accept</Text>
@@ -492,7 +478,6 @@ export default class CameraApp extends React.Component {
               }}
               // disabled={!this.state.isSelected}
               onPress={() => {
-                console.log("Testing");
                 this.setState({
                   step: this.state.step + 1,
                 });
@@ -531,7 +516,6 @@ export default class CameraApp extends React.Component {
                 zIndex: 3,
               }}
               onPress={() => {
-                console.log("Testing");
                 this.setState({
                   step: this.state.step + 1,
                 });
@@ -555,7 +539,6 @@ export default class CameraApp extends React.Component {
                 zIndex: 3,
               }}
               onPress={() => {
-                console.log("Testing");
                 this.setState({
                   step: this.state.step + 1,
                 });
@@ -591,9 +574,9 @@ export default class CameraApp extends React.Component {
           <Image
             style={{
               width: "100%",
-              height: "90%",
+              height: "100%",
               zIndex: 2,
-              margin: 30,
+              // margin: 30,
             }}
             source={require("../images/secondScreen.jpg")}
           ></Image>
@@ -635,7 +618,6 @@ export default class CameraApp extends React.Component {
                 zIndex: 3,
               }}
               onPress={() => {
-                console.log("Testing");
                 this.setState({
                   step: this.state.step + 1,
                 });
@@ -691,7 +673,6 @@ export default class CameraApp extends React.Component {
                 zIndex: 3,
               }}
               onPress={() => {
-                console.log("Testing");
                 this.setState({
                   step: this.state.step + 1,
                 });
@@ -715,7 +696,6 @@ export default class CameraApp extends React.Component {
                 zIndex: 3,
               }}
               onPress={() => {
-                console.log("Testing");
                 this.setState({
                   step: this.state.step + 1,
                 });
@@ -815,7 +795,6 @@ export default class CameraApp extends React.Component {
             zIndex: 5,
           }}
         >
-          {console.log("this.state==>", this.state.step, this.state.facePosition)}
           {/* {(this.state.step === 1 ||
             this.state.step === 3 ||
             this.state.step === 5) &&
@@ -942,7 +921,24 @@ export default class CameraApp extends React.Component {
             </Text>
           </View>
         </View>
+        <View style={{
+          alignItems: 'center',
+          justifyContent: 'center',
+          width: width * 0.8,
+          alignSelf: 'center',
+          top: 130, position: 'absolute',
+          zIndex: 3,
+          height: 50,
+          // backgroundColor: 'white'
 
+
+        }}>
+         {this.state.faceDirection == 'Look Straight' ?
+            <Entypo style={{ zIndex: 3, }} name="arrow-bold-up" size={30} color="black" /> :
+            this.state.faceDirection === 'Turn Left' ?
+              <Entypo name="arrow-bold-left" size={30} color="black" />
+              : <Entypo name="arrow-bold-right" size={30} color="black"  />}
+        </View>
         <View
           style={{
             //To make Oval Shape

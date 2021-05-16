@@ -29,7 +29,6 @@ const { width, height } = Dimensions.get("window");
 export function App({ navigation }) {
   const [text, setText] = useState("");
 
-  console.log("Inside the app functions =>");
 
   return (
     <View

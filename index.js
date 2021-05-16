@@ -8,11 +8,7 @@ import React, { Component, useState } from "react";
 
 import configureStore from "./app/store/configureStore";
 
-console.log("configureStore =>", configureStore);
-
 const store = configureStore();
-
-console.log("Created Store =>", store);
 
 const applyRedux = () => {
   return (
