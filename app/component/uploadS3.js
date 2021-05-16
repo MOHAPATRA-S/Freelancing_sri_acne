@@ -119,24 +119,24 @@ export default class UploadS3 extends Component {
         email: this.state.enterEmail,
         phonenumber: this.state.enterPhone
       }
-      let axiosResponse = await axios.post(config.apiGateway + "/acne", data
 
-        // id: uuidv4(),
-        // dateTime: new Date().getTime(),
-        // lookStraight: faceImageUpload1,
-        // lookLeft: faceImageUpload2,
-        // lookRight: faceImageUpload3,
-        // email: this.state.enterEmail,
-        // phone: this.state.enterPhone,
-        // maleOrFemale: this.state.maleOrFemale,
-        // acneTime: this.state.acneTime,
-        // age: this.state.age,
-        // acneLevel: this.state.acneLevel,
-        // otherAcne: this.state.otherAcne,
-        // sportsWear: this.state.sportsWear
-      );
+      let axiosResponse = await axios.post(config.apiGateway + "/acne", data);
 
+      // id: uuidv4(),
+      // dateTime: new Date().getTime(),
+      // lookStraight: faceImageUpload1,
+      // lookLeft: faceImageUpload2,
+      // lookRight: faceImageUpload3,
+      // email: this.state.enterEmail,
+      // phone: this.state.enterPhone,
+      // maleOrFemale: this.state.maleOrFemale,
+      // acneTime: this.state.acneTime,
+      // age: this.state.age,
+      // acneLevel: this.state.acneLevel,
+      // otherAcne: this.state.otherAcne,
+      // sportsWear: this.state.sportsWear
 
+      // if()
       this.setState({
         dataUploaded: true,
       });
@@ -294,7 +294,7 @@ export default class UploadS3 extends Component {
 
 
   render() {
-   
+
 
     if (this.state.dataUploaded) {
       return (
@@ -375,7 +375,7 @@ export default class UploadS3 extends Component {
                 animationTypes={['pulse', 'zoomIn']}
                 data={data}
                 selectedBtn={(e) => {
-                   this.validateHandle(e, 'sex', 'What is your sex?')
+                  this.validateHandle(e, 'sex', 'What is your sex?')
                   // this.setState({
                   //   maleOrFemale: e
                   // })
@@ -392,7 +392,7 @@ export default class UploadS3 extends Component {
                 animationTypes={['pulse', 'zoomIn']}
                 selectedBtn={(e) => {
                   this.validateHandle(e, 'sufferedTime', 'How long have you suffered from acne?')
-                 
+
                 }}
               />
             </View>
@@ -484,7 +484,7 @@ export default class UploadS3 extends Component {
                 animationTypes={['pulse', 'zoomIn']}
                 data={data}
                 selectedBtn={(e) => {
-                 this.validateHandle(e, 'flare', 'Are there certain triggers that cause your acne to flare up?')
+                  this.validateHandle(e, 'flare', 'Are there certain triggers that cause your acne to flare up?')
                   // this.setState({
                   //   maleOrFemale: e
                   // })
@@ -521,7 +521,7 @@ export default class UploadS3 extends Component {
                 animationTypes={['pulse', 'zoomIn']}
                 data={acneLevel}
                 selectedBtn={(e) => {
-               this.validateHandle(e, 'sufferingFrom', 'What do you think you are suffering from?')
+                  this.validateHandle(e, 'sufferingFrom', 'What do you think you are suffering from?')
                   // this.setState({
                   //   acneLevel
                   //     : e
@@ -723,7 +723,7 @@ export default class UploadS3 extends Component {
                 animationTypes={['pulse', 'rotate']}
                 data={otherAcne}
                 selectedBtn={(e) => {
-            this.validateHandle(e, 'skinConcerns', 'Do you have other skin concerns in addition to acne?')
+                  this.validateHandle(e, 'skinConcerns', 'Do you have other skin concerns in addition to acne?')
                   // this.setState({
                   //   otherAcne
                   //     : e
