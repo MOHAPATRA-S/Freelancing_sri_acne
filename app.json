@@ -2,7 +2,7 @@
   "expo": {
     "name": "SRI Acne",
     "slug": "SRIAcne",
-    "version": "1.0.13",
+    "version": "1.1.0",
     "orientation": "portrait",
     "icon": "./assets/icon-new-working.png",
     "splash": {
@@ -18,7 +18,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "buildNumber": "1.0.13",
+      "buildNumber": "1.1.0",
       "bundleIdentifier": "com.SkinResearchInstitute.SRIAcne",
       "infoPlist": {
         "NSCameraUsageDescription": "This app uses the camera to scan for skin acne.",
